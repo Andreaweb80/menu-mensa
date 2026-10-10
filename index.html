@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#1B2A4A">
+<meta name="description" content="Menù della mensa delle scuole di Nichelino: piatti del giorno e settimana del ciclo.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Menù mensa">
+<title>Menù mensa · Scuole di Nichelino</title>
+<style>
+/* Font opzionali ospitati da te (vedi istruzioni): se i file mancano si usano i font di sistema */
+@font-face{font-family:"Bricolage Grotesque";src:url(fonts/bricolage.ttf) format("truetype");font-weight:700 800;font-display:swap}
+@font-face{font-family:"Figtree";src:url(fonts/figtree.ttf) format("truetype");font-weight:500 700;font-display:swap}
+:root{
+  --paper:#F6F9FE; --grid:#DDE7F5; --rule:#C5D4EC; --ink:#1B2A4A; --ink-soft:#52628A;
+  --pen:#C0243C; --margin:#E58E9A; --hl:#FFE066; --bar:#FFFFFF; --bar-line:#C5D4EC;
+  --display:"Bricolage Grotesque","Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#14202E; --grid:#1D2D41; --rule:#2C4260; --ink:#E9EEF7; --ink-soft:#9DACC6;
+    --pen:#FF7487; --margin:#8C4452; --hl:#6B5A12; --bar:#1A2A3D; --bar-line:#2C4260;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14202E; --grid:#1D2D41; --rule:#2C4260; --ink:#E9EEF7; --ink-soft:#9DACC6;
+  --pen:#FF7487; --margin:#8C4452; --hl:#6B5A12; --bar:#1A2A3D; --bar-line:#2C4260;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; min-height:100vh; color:var(--ink); background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:26px 26px;
+  font-family:var(--body); font-weight:500; font-size:1.125rem; line-height:1.4;
+  -webkit-text-size-adjust:100%;
+}
+.sheet{
+  max-width:640px; margin:0 auto; padding:20px 18px 120px 20px;
+}
+.page{ border-left:2px solid var(--margin); padding-left:18px; margin-left:6px }
+.who{ margin:4px 0 14px; color:var(--ink-soft); font-weight:600; font-size:.95rem }
+.hero{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px }
+.chip{ display:inline-block; margin:0 0 6px; font-weight:700; font-size:.9rem; color:var(--pen) }
+h1{
+  margin:0; font-family:var(--display); font-weight:800; letter-spacing:-.02em;
+  font-size:clamp(2.7rem,13vw,4.4rem); line-height:1;
+}
+h1 span{ background:linear-gradient(transparent 58%,var(--hl) 58%); padding:0 .08em; margin-left:-.08em }
+.date{ margin:6px 0 0; font-size:1.5rem; font-weight:700 }
+.badge{
+  position:relative; flex:none; width:92px; height:92px; display:grid; place-content:center; text-align:center;
+  transform:rotate(-5deg); margin-top:6px;
+}
+.badge svg{ position:absolute; inset:0; width:100%; height:100% }
+.badge svg path{ fill:none; stroke:var(--pen); stroke-width:3.2; stroke-linecap:round }
+.badge small{ font-size:.72rem; font-weight:700; color:var(--ink-soft); line-height:1 }
+.badge strong{ font-family:var(--display); font-weight:800; font-size:2.4rem; line-height:1; color:var(--pen) }
+.season{ margin:14px 0 0; color:var(--ink-soft); font-weight:600 }
+.notice{ margin:12px 0 0; padding:10px 12px; border:1.5px dashed var(--pen); border-radius:10px; font-size:1rem;
+  background:color-mix(in srgb,var(--paper) 88%,transparent) }
+.tabs{ display:flex; gap:8px; margin:20px 0 6px }
+.tabs button{
+  appearance:none; font:inherit; font-weight:700; font-size:1rem; padding:8px 16px; min-height:44px;
+  color:var(--ink); background:transparent; border:2px solid var(--rule); border-radius:999px; cursor:pointer;
+}
+.tabs button[aria-pressed="true"]{ border-color:var(--pen); color:var(--pen) }
+.jump{ display:flex; align-items:center; gap:10px; margin:10px 0 0; font-size:1rem; color:var(--ink-soft); font-weight:600 }
+.jump select{ font:inherit; font-weight:700; color:var(--ink); background:var(--paper); border:2px solid var(--rule); border-radius:10px; padding:8px 10px; min-height:44px }
+ul.dishes{ list-style:none; margin:14px 0 0; padding:0 }
+ul.dishes li{ padding:11px 0; border-bottom:1.5px solid var(--rule); font-size:1.2rem; line-height:1.35 }
+ul.dishes li:first-child{ border-top:1.5px solid var(--rule) }
+.tag{ display:inline-block; margin-right:7px; padding:1px 9px; font-size:.74rem; font-weight:700; color:var(--pen);
+  border:1.5px solid currentColor; border-radius:999px; vertical-align:.12em; white-space:nowrap }
+.empty{ margin:18px 0 0; padding:14px; border:1.5px dashed var(--rule); border-radius:10px; color:var(--ink-soft) }
+ol.week{ list-style:none; margin:10px 0 0; padding:0 }
+ol.week > li{ padding:14px 0 6px; border-bottom:2px solid var(--rule) }
+ol.week h2{ margin:0; font-family:var(--display); font-weight:800; font-size:1.5rem; letter-spacing:-.01em }
+ol.week h2 span{ font-family:var(--body); font-weight:600; font-size:1rem; color:var(--ink-soft); margin-left:6px }
+ol.week > li.is-sel h2 b{ background:linear-gradient(transparent 58%,var(--hl) 58%); padding:0 .08em; margin-left:-.08em; font-weight:inherit }
+ol.week ul.dishes{ margin-top:4px }
+ol.week ul.dishes li{ font-size:1.02rem; padding:7px 0; border:0 }
+ol.week ul.dishes li:first-child{ border:0 }
+.foot{ margin:26px 0 0; font-size:.88rem; color:var(--ink-soft); line-height:1.5 }
+.foot p{ margin:0 0 8px }
+.bar{
+  position:fixed; left:0; right:0; bottom:0; z-index:5;
+  display:flex; justify-content:center; gap:10px;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
+  background:var(--bar); border-top:2px solid var(--bar-line);
+}
+.bar button{
+  appearance:none; font:inherit; font-weight:700; font-size:1.05rem; color:var(--ink); background:transparent;
+  min-height:48px; min-width:56px; padding:0 18px; border:2px solid var(--rule); border-radius:12px; cursor:pointer;
+}
+.bar button.go{ flex:1; max-width:160px }
+.bar button:disabled{ opacity:.35; cursor:default }
+.bar button:active:not(:disabled){ background:var(--grid) }
+button:focus-visible,select:focus-visible{ outline:3px solid var(--pen); outline-offset:2px }
+@media (min-width:600px){ .sheet{ padding-top:36px } .badge{ width:104px; height:104px } .badge strong{ font-size:2.8rem } }
+@media (prefers-reduced-motion:reduce){ *{ transition:none!important } }
+</style>
+</head>
+<body>
+<noscript>Per vedere il menù serve JavaScript.</noscript>
+<main class="sheet"><div class="page" id="app" aria-live="polite"></div></main>
+<nav class="bar" aria-label="Navigazione">
+  <button id="prev" type="button" aria-label="Precedente">‹</button>
+  <button id="today" type="button" class="go">Oggi</button>
+  <button id="next" type="button" aria-label="Successivo">›</button>
+</nav>
+<script>
+(function(){
+"use strict";
+var DATA=null;
+var GK=["lunedi","martedi","mercoledi","giovedi","venerdi"];
+var GL=["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
+var MESI=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+var CICLO=6;
+
+/* ---- date: sempre come "giorni dall'epoca", senza fusi né ora legale ---- */
+function isoToDay(s){var p=s.split("-").map(Number);return Math.floor(Date.UTC(p[0],p[1]-1,p[2])/86400000)}
+function dateToDay(d){return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000)}
+function parts(n){var d=new Date(n*86400000);return{m:d.getUTCMonth(),d:d.getUTCDate()}}
+function wd(n){return(((n+3)%7)+7)%7}               /* 0 = lunedì */
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+
+function seasonOf(n){var a=DATA.stagioni||[];for(var i=0;i<a.length;i++){if(n>=isoToDay(a[i].dal)&&n<=isoToDay(a[i].al))return a[i]}return null}
+function closure(n){var a=DATA.chiusure||[];for(var i=0;i<a.length;i++){var c=a[i];
+  if(typeof c==="string"){if(isoToDay(c)===n)return{motivo:""}}
+  else if(n>=isoToDay(c.dal)&&n<=isoToDay(c.al||c.dal))return{motivo:c.motivo||""}}return null}
+function weekNum(s,n){var st=isoToDay(s.primo_lunedi||s.dal);st-=wd(st);var mon=n-wd(n);
+  if(mon<st)return null;return Math.floor((mon-st)/7)%CICLO+1}
+function isSchool(n){return wd(n)<=4&&!!seasonOf(n)&&!closure(n)}
+function nextSchool(n,dir){dir=dir||1;for(var i=0;i<400;i++,n+=dir){if(isSchool(n))return n}return null}
+function stepWeek(n,dir){var mon=n-wd(n)+dir*7;
+  for(var i=0;i<60;i++,mon+=dir*7){for(var d=0;d<5;d++){if(isSchool(mon+d))return mon+d}}return null}
+function todayStatus(n){
+  if(wd(n)>4)return"Oggi è "+GL[wd(n)].toLowerCase()+": niente mensa.";
+  var c=closure(n);if(c)return"Oggi la scuola è chiusa"+(c.motivo?" ("+esc(c.motivo)+")":"")+".";
+  if(!seasonOf(n))return"Oggi non è previsto nessun menù.";
+  return null}
+function dishes(n){var s=seasonOf(n);if(!s)return null;var w=weekNum(s,n);if(w==null)return null;
+  var m=DATA.menu&&DATA.menu[s.nome]&&DATA.menu[s.nome][w-1];return(m&&m[GK[wd(n)]])||[]}
+function dishHTML(p){
+  return p.split(" / ").map(function(seg){
+    var m=seg.match(/^([^:]{2,14}):\s*(.+)$/);
+    return m?'<span class="tag">'+esc(m[1])+'</span>'+esc(m[2]):esc(seg)}).join("<br>")}
+function list(arr){return'<ul class="dishes">'+arr.map(function(p){return"<li>"+dishHTML(p)+"</li>"}).join("")+"</ul>"}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
+
+/* ---- stato ---- */
+var state={view:"giorno",sel:null,loaded:dateToDay(new Date())};
+function today(){return dateToDay(new Date())}
+function goToday(){state.sel=nextSchool(today())}
+
+function render(){
+  var app=document.getElementById("app"),n=state.sel,t=today(),html="";
+  html+='<p class="who">Mensa · Scuole di Nichelino</p>';
+  if(n==null){app.innerHTML=html+'<p class="empty">Nessun giorno di scuola trovato nel menù.</p>';return}
+  var s=seasonOf(n),w=s?weekNum(s,n):null,p=parts(n);
+  var jumped=!isSchool(t)&&n===nextSchool(t);
+  var chip=jumped?"Prossimo giorno di scuola":(n===t?"Oggi":n===t+1?"Domani":n===t-1?"Ieri":"");
+  var tabs='<div class="tabs" role="group" aria-label="Vista">'+
+    '<button type="button" data-view="giorno" aria-pressed="'+(state.view==="giorno")+'">Giorno</button>'+
+    '<button type="button" data-view="settimana" aria-pressed="'+(state.view==="settimana")+'">Settimana</button></div>';
+  var badge='<div class="badge" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M52 5C27 4 5 22 6 49c1 27 24 46 49 45 26-1 41-22 39-47C92 22 74 6 46 8"/></svg><small>settimana</small><strong>'+(w||"–")+'</strong></div>';
+
+  if(state.view==="giorno"){
+    html+='<header><div class="hero"><div>'+(chip?'<p class="chip">'+chip+'</p>':"")+
+      '<h1><span>'+GL[wd(n)]+'</span></h1><p class="date">'+p.d+" "+MESI[p.m]+'</p></div>'+badge+'</header>'+
+      '<p class="season">Settimana '+(w||"–")+" del ciclo"+(s?" · menù "+esc(s.nome):"")+'</p>';
+    if(jumped){var ts=todayStatus(t);if(ts)html+='<p class="notice">'+ts+'</p>'}
+    html+=tabs;
+    var d=dishes(n);
+    html+=(d&&d.length)?list(d):'<p class="empty">Menù non ancora disponibile.</p>';
+  }else{
+    var mon=n-wd(n),fri=mon+4,a=parts(mon),b=parts(fri);
+    var range=a.m===b.m?a.d+"–"+b.d+" "+MESI[b.m]:a.d+" "+MESI[a.m]+" – "+b.d+" "+MESI[b.m];
+    html+='<header><div class="hero"><div><p class="chip">'+(mon<=t&&t<=fri?"Questa settimana":"Settimana del calendario")+'</p>'+
+      '<h1><span>Settimana '+(w||"–")+'</span></h1><p class="date">'+range+'</p></div></div></header>'+
+      '<p class="season">'+(s?"Menù "+esc(s.nome):"")+'</p>';
+    html+=tabs;
+    var opts="";for(var i=1;i<=CICLO;i++)opts+='<option value="'+i+'"'+(i===w?" selected":"")+'>Settimana '+i+'</option>';
+    html+='<label class="jump">Vai alla <select id="wk" aria-label="Scegli la settimana del ciclo">'+opts+'</select></label>';
+    html+='<ol class="week">';
+    for(var k=0;k<5;k++){var dn=mon+k,pp=parts(dn),inner,c=closure(dn);
+      if(c)inner='<p class="empty">Scuola chiusa'+(c.motivo?": "+esc(c.motivo):"")+'</p>';
+      else if(!seasonOf(dn))inner='<p class="empty">Fuori dal periodo del menù.</p>';
+      else{var dd=dishes(dn);inner=(dd&&dd.length)?list(dd):'<p class="empty">Menù non ancora disponibile.</p>'}
+      html+='<li class="'+(dn===n?"is-sel":"")+'"><h2><b>'+GL[k]+'</b><span>'+pp.d+" "+MESI[pp.m]+(dn===t?" · oggi":"")+'</span></h2>'+inner+'</li>'}
+    html+='</ol>';
+  }
+  html+='<div class="foot">'+(DATA.note?'<p>'+esc(DATA.note)+'</p>':"")+
+    '<p>Pagina non ufficiale: fa fede il menù pubblicato dal Comune e dalla ditta di ristorazione.</p></div>';
+  app.innerHTML=html;
+
+  var step=state.view==="giorno"?function(d){return nextSchool(n+d,d)}:function(d){return stepWeek(n,d)};
+  document.getElementById("prev").disabled=step(-1)==null;
+  document.getElementById("next").disabled=step(1)==null;
+  document.title="Menù mensa · "+GL[wd(n)]+" "+p.d+" "+MESI[p.m];
+}
+
+function move(d){
+  var n=state.sel;if(n==null)return;
+  var r=state.view==="giorno"?nextSchool(n+d,d):stepWeek(n,d);
+  if(r!=null){state.sel=r;render();window.scrollTo(0,0)}
+}
+document.getElementById("prev").addEventListener("click",function(){move(-1)});
+document.getElementById("next").addEventListener("click",function(){move(1)});
+document.getElementById("today").addEventListener("click",function(){goToday();render();window.scrollTo(0,0)});
+document.getElementById("app").addEventListener("click",function(e){
+  var b=e.target.closest("[data-view]");if(b){state.view=b.getAttribute("data-view");render()}});
+document.getElementById("app").addEventListener("change",function(e){
+  if(e.target.id!=="wk")return;var want=+e.target.value,base=today()-wd(today());
+  for(var i=0;i<60;i++){var mon=base+i*7;
+    for(var d=0;d<5;d++){var n=mon+d;
+      if(isSchool(n)&&weekNum(seasonOf(n),n)===want){state.sel=n;render();return}}}
+  render()});
+document.addEventListener("keydown",function(e){
+  if(e.target.tagName==="SELECT")return;
+  if(e.key==="ArrowLeft")move(-1);else if(e.key==="ArrowRight")move(1)});
+document.addEventListener("visibilitychange",function(){
+  if(document.visibilityState==="visible"&&today()!==state.loaded){state.loaded=today();goToday();render()}});
+function start(){goToday();render()}
+fetch("menu.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})
+  .then(function(j){DATA=j;start()})
+  .catch(function(){document.getElementById("app").innerHTML='<p class="who">Mensa · Scuole di Nichelino</p><p class="empty">Non riesco a caricare il menù. Controlla la connessione e riprova.</p>'});
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+})();
+</script>
+</body>
+</html>

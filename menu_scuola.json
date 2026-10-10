@@ -1,0 +1,288 @@
+{
+ "_istruzioni": "Per ogni stagione: 'dal'/'al' = periodo di validità; 'primo_lunedi' = lunedì della Settimana 1 di quel menù. Per passare all'invernale: 1) cambia 'al' dell'estivo nell'ultimo giorno estivo; 2) aggiungi una stagione {\"nome\":\"invernale\",\"dal\":\"AAAA-MM-GG\",\"al\":\"AAAA-MM-GG\",\"primo_lunedi\":\"AAAA-MM-GG\"}; 3) riempi menu.invernale. Se il ciclo continua senza ripartire, metti come primo_lunedi lo stesso valore dell'estivo (2026-10-12). Chiusure: aggiungi in 'chiusure' oggetti come {\"dal\":\"2026-12-23\",\"al\":\"2027-01-06\",\"motivo\":\"Vacanze di Natale\"}.",
+ "stagioni": [
+  {
+   "nome": "estivo",
+   "dal": "2026-10-12",
+   "al": "2027-06-30",
+   "primo_lunedi": "2026-10-12"
+  }
+ ],
+ "chiusure": [],
+ "note": "* merluzzo, platessa, seppia FAO 27/37, in base a disponibilità. Inf = infanzia, Prim = primaria, Sec = secondaria.",
+ "menu": {
+  "estivo": [
+   {
+    "lunedi": [
+     "Pasta al pomodoro",
+     "Bastoncini di merluzzo",
+     "Biete",
+     "Polpa di frutta",
+     "Pane"
+    ],
+    "martedi": [
+     "Pasta con zucchine",
+     "Hamburger di bovino",
+     "Fagiolini",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "mercoledi": [
+     "Risotto al parmigiano",
+     "Fagioli in insalata",
+     "Insalata mista",
+     "Biscotti",
+     "Pane"
+    ],
+    "giovedi": [
+     "Pasta al pesto",
+     "Provolone DOP",
+     "Pomodori",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "venerdi": [
+     "Pasta all’olio EVO",
+     "Sformato di verdura",
+     "Carote all’olio",
+     "Frutta di stagione",
+     "Pane"
+    ]
+   },
+   {
+    "lunedi": [
+     "Pasta all’ortolana",
+     "Mozzarella",
+     "Pomodori",
+     "Budino al cioccolato",
+     "Pane"
+    ],
+    "martedi": [
+     "Passato di verdura con crostini",
+     "Frittata di spinaci",
+     "Patate, melanzane e peperoni",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "mercoledi": [
+     "Pasta pomodoro e basilico",
+     "Polpette di pesce*",
+     "Zucchine",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "giovedi": [
+     "Pasta all’olio EVO",
+     "Milanese di pollo",
+     "Carote julienne",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "venerdi": [
+     "Risotto allo zafferano",
+     "Farinata con verdure",
+     "Insalata mista",
+     "Frutta di stagione",
+     "Pane"
+    ]
+   },
+   {
+    "lunedi": [
+     "Pasta al ragù di verdure",
+     "Merluzzo in umido",
+     "Spinaci",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "martedi": [
+     "Pasta burro e salvia",
+     "Lenticchie",
+     "Carote cotte",
+     "Torta casalinga",
+     "Pane"
+    ],
+    "mercoledi": [
+     "Risotto con piselli",
+     "Tortino di patate e fagiolini",
+     "Pomodori",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "giovedi": [
+     "Inf e sec: Pizza rossa",
+     "Prim: pasta pomodoro",
+     "Inf: Prosciutto cotto",
+     "Prim e sec: Speck IGP",
+     "Fagiolini",
+     "Polpa di frutta",
+     "Inf e sec: Grissini / Prim: Pane"
+    ],
+    "venerdi": [
+     "Prim: Pizza rossa",
+     "Inf e sec: pasta pomodoro",
+     "Asiago DOP",
+     "Zucchine gratinate",
+     "Frutta di stagione",
+     "Inf e sec: Pane / Prim: Grissini"
+    ]
+   },
+   {
+    "lunedi": [
+     "Risotto al parmigiano",
+     "Frittata",
+     "Fagiolini",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "martedi": [
+     "Pasta alle zucchine",
+     "Pollo arrosto",
+     "Insalata mista",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "mercoledi": [
+     "Pasta al pomodoro",
+     "Stracchino",
+     "Zucchine",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "giovedi": [
+     "Pasta all’olio EVO",
+     "Bastoncini di merluzzo",
+     "Pomodori",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "venerdi": [
+     "Pasta all’amatriciana",
+     "Farinata con verdure",
+     "Carote al forno",
+     "Yogurt alla frutta",
+     "Pane"
+    ]
+   },
+   {
+    "lunedi": [
+     "Pasta all’olio EVO",
+     "Arrosto di tacchino (prim/inf)",
+     "Manzo affumicato (sec)",
+     "olio e limone",
+     "Pomodori",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "martedi": [
+     "Pasta pomodoro e basilico",
+     "Mozzarella",
+     "Insalata mista",
+     "Budino alla vaniglia",
+     "Pane"
+    ],
+    "mercoledi": [
+     "Passato di verdura con pastina",
+     "Sformato di zucchine",
+     "Patate al forno",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "giovedi": [
+     "Pasta al pesto",
+     "Burger di legumi",
+     "Carote julienne",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "venerdi": [
+     "Risotto con piselli",
+     "Platessa dorata al forno",
+     "Peperoni",
+     "Frutta di stagione",
+     "Pane"
+    ]
+   },
+   {
+    "lunedi": [
+     "Pasta al pomodoro",
+     "Stracchino",
+     "Fagiolini",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "martedi": [
+     "Risotto allo zafferano",
+     "Seppie in umido",
+     "Carote e piselli",
+     "Frutta di stagione",
+     "Pane"
+    ],
+    "mercoledi": [
+     "Ravioli di magro al burro e salvia",
+     "Ceci all’olio",
+     "Pomodoro",
+     "Frutta di stagione",
+     "Grissini"
+    ],
+    "giovedi": [
+     "Pasta al ragù di bovino",
+     "Sformato di verdura",
+     "Insalata mista",
+     "Torta casalinga",
+     "Pane"
+    ],
+    "venerdi": [
+     "Pasta al sugo di melanzane",
+     "Fesa di tacchino al forno",
+     "Zucchine gratinate",
+     "Frutta di stagione",
+     "Pane"
+    ]
+   }
+  ],
+  "invernale": [
+   {
+    "lunedi": [],
+    "martedi": [],
+    "mercoledi": [],
+    "giovedi": [],
+    "venerdi": []
+   },
+   {
+    "lunedi": [],
+    "martedi": [],
+    "mercoledi": [],
+    "giovedi": [],
+    "venerdi": []
+   },
+   {
+    "lunedi": [],
+    "martedi": [],
+    "mercoledi": [],
+    "giovedi": [],
+    "venerdi": []
+   },
+   {
+    "lunedi": [],
+    "martedi": [],
+    "mercoledi": [],
+    "giovedi": [],
+    "venerdi": []
+   },
+   {
+    "lunedi": [],
+    "martedi": [],
+    "mercoledi": [],
+    "giovedi": [],
+    "venerdi": []
+   },
+   {
+    "lunedi": [],
+    "martedi": [],
+    "mercoledi": [],
+    "giovedi": [],
+    "venerdi": []
+   }
+  ]
+ }
+}
