@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Menù mensa">
 <title>Menù mensa · Scuole di Nichelino</title>
 <style>
-/* Font opzionali ospitati da te (vedi istruzioni): se i file mancano si usano i font di sistema */
+/* Font opzionali ospitati da te: se i file mancano si usano i font di sistema */
 @font-face{font-family:"Bricolage Grotesque";src:url(fonts/bricolage.ttf) format("truetype");font-weight:700 800;font-display:swap}
 @font-face{font-family:"Figtree";src:url(fonts/figtree.ttf) format("truetype");font-weight:500 700;font-display:swap}
 :root{
@@ -78,8 +78,10 @@ h1 span{ background:linear-gradient(transparent 58%,var(--hl) 58%); padding:0 .0
 .jump{ display:flex; align-items:center; gap:10px; margin:10px 0 0; font-size:1rem; color:var(--ink-soft); font-weight:600 }
 .jump select{ font:inherit; font-weight:700; color:var(--ink); background:var(--paper); border:2px solid var(--rule); border-radius:10px; padding:8px 10px; min-height:44px }
 ul.dishes{ list-style:none; margin:14px 0 0; padding:0 }
-ul.dishes li{ padding:11px 0; border-bottom:1.5px solid var(--rule); font-size:1.2rem; line-height:1.35 }
+ul.dishes li{ display:flex; align-items:baseline; gap:12px; padding:11px 0; border-bottom:1.5px solid var(--rule); font-size:1.2rem; line-height:1.35 }
 ul.dishes li:first-child{ border-top:1.5px solid var(--rule) }
+.ic{ flex:none; width:1.7em; text-align:center; font-size:1.1em; line-height:1; font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif }
+.tx{ min-width:0 }
 .tag{ display:inline-block; margin-right:7px; padding:1px 9px; font-size:.74rem; font-weight:700; color:var(--pen);
   border:1.5px solid currentColor; border-radius:999px; vertical-align:.12em; white-space:nowrap }
 .empty{ margin:18px 0 0; padding:14px; border:1.5px dashed var(--rule); border-radius:10px; color:var(--ink-soft) }
@@ -89,7 +91,7 @@ ol.week h2{ margin:0; font-family:var(--display); font-weight:800; font-size:1.5
 ol.week h2 span{ font-family:var(--body); font-weight:600; font-size:1rem; color:var(--ink-soft); margin-left:6px }
 ol.week > li.is-sel h2 b{ background:linear-gradient(transparent 58%,var(--hl) 58%); padding:0 .08em; margin-left:-.08em; font-weight:inherit }
 ol.week ul.dishes{ margin-top:4px }
-ol.week ul.dishes li{ font-size:1.02rem; padding:7px 0; border:0 }
+ol.week ul.dishes li{ font-size:1.02rem; padding:7px 0; border:0; gap:10px }
 ol.week ul.dishes li:first-child{ border:0 }
 .foot{ margin:26px 0 0; font-size:.88rem; color:var(--ink-soft); line-height:1.5 }
 .foot p{ margin:0 0 8px }
@@ -156,7 +158,19 @@ function dishHTML(p){
   return p.split(" / ").map(function(seg){
     var m=seg.match(/^([^:]{2,14}):\s*(.+)$/);
     return m?'<span class="tag">'+esc(m[1])+'</span>'+esc(m[2]):esc(seg)}).join("<br>")}
-function list(arr){return'<ul class="dishes">'+arr.map(function(p){return"<li>"+dishHTML(p)+"</li>"}).join("")+"</ul>"}
+var ICONS=[[/pizza/,"\uD83C\uDF55"],[/^(pasta|ravioli)/,"\uD83C\uDF5D"],[/^risotto/,"\uD83C\uDF5A"],[/^passato/,"\uD83E\uDD63"],
+  [/pesce|merluzzo|platessa|seppi|bastoncini/,"\uD83D\uDC1F"],[/pollo|tacchino|fesa/,"\uD83C\uDF57"],
+  [/hamburger|bovino|manzo|prosciutto|speck/,"\uD83E\uDD69"],[/frittata|uova/,"\uD83E\uDD5A"],
+  [/mozzarella|provolone|stracchino|asiago|formaggio/,"\uD83E\uDDC0"],[/lenticchie|fagioli in|ceci|legumi|farinata/,"\uD83E\uDED8"],
+  [/sformato|tortino/,"\uD83E\uDD58"],[/pomodor/,"\uD83C\uDF45"],[/carote/,"\uD83E\uDD55"],[/patate/,"\uD83E\uDD54"],
+  [/zucchine|spinaci|biete|fagiolini|peperon|melanzane|insalata|verdur/,"\uD83E\uDD57"],[/yogurt/,"\uD83E\uDD5B"],
+  [/budino|torta|biscotti/,"\uD83C\uDF70"],[/frutta|polpa/,"\uD83C\uDF4E"],[/grissini/,"\uD83E\uDD56"],[/pane/,"\uD83C\uDF5E"],[/limone/,"\uD83C\uDF4B"]];
+function iconFor(p){
+  var t=p.split(" / ")[0].replace(/^[^:]{2,14}:\s*/,"").toLowerCase();
+  for(var i=0;i<ICONS.length;i++){if(ICONS[i][0].test(t))return ICONS[i][1]}
+  return"\uD83C\uDF7D"}
+function list(arr){return'<ul class="dishes">'+arr.map(function(p){
+  return'<li><span class="ic" aria-hidden="true">'+iconFor(p)+'</span><span class="tx">'+dishHTML(p)+"</span></li>"}).join("")+"</ul>"}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 
 /* ---- stato ---- */
