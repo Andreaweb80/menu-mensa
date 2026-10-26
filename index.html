@@ -93,6 +93,14 @@ ol.week > li.is-sel h2 b{ background:linear-gradient(transparent 58%,var(--hl) 5
 ol.week ul.dishes{ margin-top:4px }
 ol.week ul.dishes li{ font-size:1.02rem; padding:7px 0; border:0; gap:10px }
 ol.week ul.dishes li:first-child{ border:0 }
+a.special{ display:flex; align-items:center; gap:12px; margin:16px 0 6px; padding:12px 14px; text-decoration:none; color:var(--ink);
+  border:2px solid var(--pen); border-radius:12px; background:color-mix(in srgb,var(--hl) 45%,var(--paper)) }
+a.special .ic{ width:1.6em; font-size:1.4em }
+a.special .tx{ flex:1; line-height:1.3; font-size:1.05rem }
+a.special .tx strong{ font-family:var(--display); font-size:1.2rem }
+a.special .go{ font-size:1.8rem; color:var(--pen); font-weight:700 }
+ol.week a.special{ margin:8px 0 2px; padding:8px 12px }
+.stdnote{ margin:14px 0 0; font-size:.95rem; color:var(--ink-soft); font-weight:600 }
 .foot{ margin:26px 0 0; font-size:.88rem; color:var(--ink-soft); line-height:1.5 }
 .foot p{ margin:0 0 8px }
 .bar{
@@ -129,6 +137,7 @@ var GK=["lunedi","martedi","mercoledi","giovedi","venerdi"];
 var GL=["Lunedì","Martedì","Mercoledì","Giovedì","Venerdì","Sabato","Domenica"];
 var MESI=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
 var CICLO=6;
+var SPECIALI=true; /* true nella versione GitHub: cerca speciali/AAAA-MM-GG.pdf */
 
 /* ---- date: sempre come "giorni dall'epoca", senza fusi né ora legale ---- */
 function isoToDay(s){var p=s.split("-").map(Number);return Math.floor(Date.UTC(p[0],p[1]-1,p[2])/86400000)}
@@ -158,19 +167,30 @@ function dishHTML(p){
   return p.split(" / ").map(function(seg){
     var m=seg.match(/^([^:]{2,14}):\s*(.+)$/);
     return m?'<span class="tag">'+esc(m[1])+'</span>'+esc(m[2]):esc(seg)}).join("<br>")}
-var ICONS=[[/pizza/,"\uD83C\uDF55"],[/^(pasta|ravioli)/,"\uD83C\uDF5D"],[/^risotto/,"\uD83C\uDF5A"],[/^passato/,"\uD83E\uDD63"],
+var ICONS=[[/pizza/,"\uD83C\uDF55"],[/^(pasta|ravioli|lasagna)/,"\uD83C\uDF5D"],[/^risotto/,"\uD83C\uDF5A"],[/^(passato|minestr|crema)/,"\uD83E\uDD63"],
   [/pesce|merluzzo|platessa|seppi|bastoncini/,"\uD83D\uDC1F"],[/pollo|tacchino|fesa/,"\uD83C\uDF57"],
-  [/hamburger|bovino|manzo|prosciutto|speck/,"\uD83E\uDD69"],[/frittata|uova/,"\uD83E\uDD5A"],
-  [/mozzarella|provolone|stracchino|asiago|formaggio/,"\uD83E\uDDC0"],[/lenticchie|fagioli in|ceci|legumi|farinata/,"\uD83E\uDED8"],
-  [/sformato|tortino/,"\uD83E\uDD58"],[/pomodor/,"\uD83C\uDF45"],[/carote/,"\uD83E\uDD55"],[/patate/,"\uD83E\uDD54"],
-  [/zucchine|spinaci|biete|fagiolini|peperon|melanzane|insalata|verdur/,"\uD83E\uDD57"],[/yogurt/,"\uD83E\uDD5B"],
-  [/budino|torta|biscotti/,"\uD83C\uDF70"],[/frutta|polpa/,"\uD83C\uDF4E"],[/grissini/,"\uD83E\uDD56"],[/pane/,"\uD83C\uDF5E"],[/limone/,"\uD83C\uDF4B"]];
+  [/hamburger di (?!legumi)|bovino|manzo|prosciutto|speck|mortadella/,"\uD83E\uDD69"],[/frittata|uova/,"\uD83E\uDD5A"],
+  [/mozzarella|provolone|stracchino|asiago|ricotta|certosa|formaggio/,"\uD83E\uDDC0"],[/lenticchie|fagioli in|ceci|legumi|farinata/,"\uD83E\uDED8"],
+  [/sformato|tortino/,"\uD83E\uDD58"],[/polenta/,"\uD83C\uDF3D"],[/broccoli|cavolfiori/,"\uD83E\uDD66"],[/pomodor/,"\uD83C\uDF45"],[/carote/,"\uD83E\uDD55"],[/patate/,"\uD83E\uDD54"],
+  [/zucchine|spinaci|biete|fagiolini|peperon|melanzane|insalata|verdur|finocchi|verza/,"\uD83E\uDD57"],[/yogurt/,"\uD83E\uDD5B"],
+  [/budino|torta|biscotti/,"\uD83C\uDF70"],[/cioccolato|barretta/,"\uD83C\uDF6B"],[/frutta|polpa/,"\uD83C\uDF4E"],[/grissini/,"\uD83E\uDD56"],[/pane/,"\uD83C\uDF5E"],[/limone/,"\uD83C\uDF4B"]];
 function iconFor(p){
   var t=p.split(" / ")[0].replace(/^[^:]{2,14}:\s*/,"").toLowerCase();
   for(var i=0;i<ICONS.length;i++){if(ICONS[i][0].test(t))return ICONS[i][1]}
   return"\uD83C\uDF7D"}
 function list(arr){return'<ul class="dishes">'+arr.map(function(p){
   return'<li><span class="ic" aria-hidden="true">'+iconFor(p)+'</span><span class="tx">'+dishHTML(p)+"</span></li>"}).join("")+"</ul>"}
+var specials={};
+function pad(x){return x<10?"0"+x:""+x}
+function isoOf(n){var d=new Date(n*86400000);return d.getUTCFullYear()+"-"+pad(d.getUTCMonth()+1)+"-"+pad(d.getUTCDate())}
+function checkSpecial(n){
+  if(!SPECIALI||n==null||(n in specials))return;
+  specials[n]=false;
+  fetch("speciali/"+isoOf(n)+".pdf",{method:"HEAD",cache:"no-cache"}).then(function(r){
+    if(r.ok&&/pdf/i.test(r.headers.get("content-type")||"")){specials[n]=true;render()}}).catch(function(){})}
+function specialBanner(n){
+  return'<a class="special" href="speciali/'+isoOf(n)+'.pdf" target="_blank" rel="noopener"><span class="ic" aria-hidden="true">\u2B50</span>'+
+    '<span class="tx"><strong>Menù speciale</strong><br>Apri il menù del giorno (PDF)</span><span class="go" aria-hidden="true">›</span></a>'}
 function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 
 /* ---- stato ---- */
@@ -197,6 +217,8 @@ function render(){
     if(jumped){var ts=todayStatus(t);if(ts)html+='<p class="notice">'+ts+'</p>'}
     html+=tabs;
     var d=dishes(n);
+    checkSpecial(n);
+    if(SPECIALI&&specials[n])html+=specialBanner(n)+'<p class="stdnote">Menù standard del giorno, sostituito dal menù speciale:</p>';
     html+=(d&&d.length)?list(d):'<p class="empty">Menù non ancora disponibile.</p>';
   }else{
     var mon=n-wd(n),fri=mon+4,a=parts(mon),b=parts(fri);
@@ -212,7 +234,9 @@ function render(){
       if(c)inner='<p class="empty">Scuola chiusa'+(c.motivo?": "+esc(c.motivo):"")+'</p>';
       else if(!seasonOf(dn))inner='<p class="empty">Fuori dal periodo del menù.</p>';
       else{var dd=dishes(dn);inner=(dd&&dd.length)?list(dd):'<p class="empty">Menù non ancora disponibile.</p>'}
-      html+='<li class="'+(dn===n?"is-sel":"")+'"><h2><b>'+GL[k]+'</b><span>'+pp.d+" "+MESI[pp.m]+(dn===t?" · oggi":"")+'</span></h2>'+inner+'</li>'}
+      checkSpecial(dn);
+      html+='<li class="'+(dn===n?"is-sel":"")+'"><h2><b>'+GL[k]+'</b><span>'+pp.d+" "+MESI[pp.m]+(dn===t?" · oggi":"")+'</span></h2>'+
+        (SPECIALI&&specials[dn]?specialBanner(dn):"")+inner+'</li>'}
     html+='</ol>';
   }
   html+='<div class="foot">'+(DATA.note?'<p>'+esc(DATA.note)+'</p>':"")+

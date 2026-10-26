@@ -1,5 +1,5 @@
 // Cambia il numero della versione quando modifichi index.html, per forzare l'aggiornamento della cache
-const CACHE = "menu-mensa-v2";
+const CACHE = "menu-mensa-v4";
 const CORE = ["./", "index.html", "menu.json", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
@@ -18,6 +18,6 @@ self.addEventListener("fetch", e => {
     fetch(req).then(res => {
       if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
       return res;
-    }).catch(() => caches.match(req).then(r => r || caches.match("index.html")))
+    }).catch(() => caches.match(req).then(r => r || (req.mode === "navigate" ? caches.match("index.html") : Response.error())))
   );
 });

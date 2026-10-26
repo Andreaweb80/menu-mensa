@@ -1,9 +1,15 @@
 {
- "_istruzioni": "Per ogni stagione: 'dal'/'al' = periodo di validità; 'primo_lunedi' = lunedì della Settimana 1 di quel menù. Per passare all'invernale: 1) cambia 'al' dell'estivo nell'ultimo giorno estivo; 2) aggiungi una stagione {\"nome\":\"invernale\",\"dal\":\"AAAA-MM-GG\",\"al\":\"AAAA-MM-GG\",\"primo_lunedi\":\"AAAA-MM-GG\"}; 3) riempi menu.invernale. Se il ciclo continua senza ripartire, metti come primo_lunedi lo stesso valore dell'estivo (2026-10-12). Chiusure: aggiungi in 'chiusure' oggetti come {\"dal\":\"2026-12-23\",\"al\":\"2027-01-06\",\"motivo\":\"Vacanze di Natale\"}.",
+ "_istruzioni": "Ogni stagione ha 'dal'/'al' (periodo di validità) e 'primo_lunedi' (il lunedì della Settimana 1 di quel menù). Per tornare a un menù già presente (es. estivo in primavera): cambia 'al' dell'invernale e aggiungi una nuova voce in 'stagioni' con lo stesso 'nome' e le nuove date. Se il ciclo non riparte dalla Settimana 1, scegli 'primo_lunedi' di conseguenza. Chiusure: aggiungi in 'chiusure' oggetti come {\"dal\":\"2026-12-23\",\"al\":\"2027-01-06\",\"motivo\":\"Vacanze di Natale\"}.",
  "stagioni": [
   {
    "nome": "estivo",
    "dal": "2026-10-12",
+   "al": "2026-11-01",
+   "primo_lunedi": "2026-10-12"
+  },
+  {
+   "nome": "invernale",
+   "dal": "2026-11-02",
    "al": "2027-06-30",
    "primo_lunedi": "2026-10-12"
   }
@@ -241,46 +247,228 @@
   ],
   "invernale": [
    {
-    "lunedi": [],
-    "martedi": [],
-    "mercoledi": [],
-    "giovedi": [],
-    "venerdi": []
+    "lunedi": [
+     "Pasta al pomodoro",
+     "Provolone Valpadana DOP",
+     "Spinaci",
+     "Pane integrale",
+     "Frutta fresca di stagione"
+    ],
+    "martedi": [
+     "Pasta all’olio extra",
+     "Seppie in umido con carote e piselli",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "mercoledi": [
+     "Risotto allo zafferano",
+     "Frittata",
+     "Insalata",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "giovedi": [
+     "Minestrina in brodo vegetale con pastina",
+     "Petto di pollo impanato al forno",
+     "Purea di patate e zucca",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "venerdi": [
+     "Ravioli di magro burro e salvia",
+     "Lenticchie in umido",
+     "Carote e insalata",
+     "Pane",
+     "Barretta di cioccolato equosolidale"
+    ]
    },
    {
-    "lunedi": [],
-    "martedi": [],
-    "mercoledi": [],
-    "giovedi": [],
-    "venerdi": []
+    "lunedi": [
+     "Pasta al ragù di verdure",
+     "Bastoncini di pesce",
+     "Verza in insalata",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "martedi": [
+     "Risotto alla zucca",
+     "Fesa di tacchino al forno",
+     "Biete",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "mercoledi": [
+     "Pasta all’olio Extra",
+     "Farinata di verdure",
+     "Carote al forno",
+     "Pane",
+     "Budino al cioccolato"
+    ],
+    "giovedi": [
+     "Lasagna al ragù di bovino",
+     "Ricotta",
+     "Insalata mista",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "venerdi": [
+     "Passato di verdura con crostini",
+     "Tortino di patate e fagiolini",
+     "Finocchi gratinati",
+     "Pane",
+     "Frutta fresca di stagione"
+    ]
    },
    {
-    "lunedi": [],
-    "martedi": [],
-    "mercoledi": [],
-    "giovedi": [],
-    "venerdi": []
+    "lunedi": [
+     "Pasta al pomodoro",
+     "Stracchino/Certosa",
+     "Broccoli",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "martedi": [
+     "Pasta al pesto",
+     "Farinata con verdure",
+     "Insalata mista",
+     "Pane",
+     "Torta casalinga"
+    ],
+    "mercoledi": [
+     "Polenta",
+     "Arrosto di bovino",
+     "Carote cotte",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "giovedi": [
+     "Passato di verdura con pastina",
+     "Sformato di zucca",
+     "Patate all’olio",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "venerdi": [
+     "Risotto al parmigiano",
+     "Hamburger di pesce*",
+     "Insalata di finocchi e carote",
+     "Pane",
+     "Frutta fresca di stagione"
+    ]
    },
    {
-    "lunedi": [],
-    "martedi": [],
-    "mercoledi": [],
-    "giovedi": [],
-    "venerdi": []
+    "lunedi": [
+     "Pasta al ragù di verdure",
+     "Arrosto di tacchino con olio e limone",
+     "Cavolfiori gratinati",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "martedi": [
+     "Pasta all’olio Extra",
+     "Frittata con verdure",
+     "Finocchi in insalata (cotti per l’infanzia)",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "mercoledi": [
+     "Passato di verdura con crostini",
+     "Asiago DOP",
+     "Patate al forno",
+     "Pane integrale",
+     "Frutta fresca di stagione"
+    ],
+    "giovedi": [
+     "Pasta al pomodoro",
+     "Platessa dorata al forno",
+     "Insalata mista",
+     "Pane",
+     "Budino alla vaniglia"
+    ],
+    "venerdi": [
+     "Risotto alla zucca",
+     "Fagioli in umido oppure purea di ceci (tipo hummus)",
+     "Spinaci",
+     "Pane",
+     "Frutta fresca di stagione"
+    ]
    },
    {
-    "lunedi": [],
-    "martedi": [],
-    "mercoledi": [],
-    "giovedi": [],
-    "venerdi": []
+    "lunedi": [
+     "Pasta al pomodoro",
+     "Ricotta",
+     "Fagiolini",
+     "Pane",
+     "Biscotti"
+    ],
+    "martedi": [
+     "Risotto allo zafferano",
+     "Polpette di bovino",
+     "Broccoli",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "mercoledi": [
+     "Pasta all’olio Extra",
+     "Merluzzo in umido",
+     "Biete",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "giovedi": [
+     "Pasta all’amatriciana",
+     "Hamburger di legumi",
+     "Carote julienne",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "venerdi": [
+     "Crema di zucca con pastina",
+     "Tortino di verdure",
+     "Purea di patate",
+     "Pane",
+     "Frutta fresca di stagione"
+    ]
    },
    {
-    "lunedi": [],
-    "martedi": [],
-    "mercoledi": [],
-    "giovedi": [],
-    "venerdi": []
+    "lunedi": [
+     "Minestra di verdure con pastina",
+     "Bastoncini di pesce",
+     "Patate prezzemolate",
+     "Pane",
+     "Frutta fresca di stagione"
+    ],
+    "martedi": [
+     "Inf e sec: Pizza rossa",
+     "Prim: pasta al pomodoro",
+     "Inf: Prosciutto cotto",
+     "Prim e sec: Mortadella Bologna DOP",
+     "Finocchi gratinati",
+     "Inf e sec: Grissini / Prim: Pane",
+     "Frutta fresca di stagione"
+    ],
+    "mercoledi": [
+     "Risotto al parmigiano",
+     "Polpette di legumi",
+     "Spinaci",
+     "Pane",
+     "Torta casalinga"
+    ],
+    "giovedi": [
+     "Inf e sec: Pasta al pomodoro",
+     "Prim: Pizza rossa",
+     "Mozzarella",
+     "Verza in insalata",
+     "Inf e sec: Pane / Prim: Grissini",
+     "Frutta fresca di stagione"
+    ],
+    "venerdi": [
+     "Pasta all’olio Extra",
+     "Sformato di verdura",
+     "Insalata con carote",
+     "Pane",
+     "Frutta fresca di stagione"
+    ]
    }
   ]
  }
