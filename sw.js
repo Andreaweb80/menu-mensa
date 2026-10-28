@@ -1,5 +1,5 @@
 // Cambia il numero della versione quando modifichi index.html, per forzare l'aggiornamento della cache
-const CACHE = "menu-mensa-v4";
+const CACHE = "menu-mensa-v6";
 const CORE = ["./", "index.html", "menu.json", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", e => {

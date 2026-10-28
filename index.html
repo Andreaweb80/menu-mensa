@@ -240,7 +240,7 @@ function render(){
     html+='</ol>';
   }
   html+='<div class="foot">'+(DATA.note?'<p>'+esc(DATA.note)+'</p>':"")+
-    '<p>Pagina non ufficiale: fa fede il menù pubblicato dal Comune e dalla ditta di ristorazione.</p></div>';
+    '<p>Pagina non ufficiale: fa fede il menù pubblicato dal Comune e dalla ditta di ristorazione.</p>'+'</div>';
   app.innerHTML=html;
 
   var step=state.view==="giorno"?function(d){return nextSchool(n+d,d)}:function(d){return stepWeek(n,d)};
@@ -275,6 +275,19 @@ fetch("menu.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw new Error(
   .then(function(j){DATA=j;start()})
   .catch(function(){document.getElementById("app").innerHTML='<p class="who">Mensa · Scuole di Nichelino</p><p class="empty">Non riesco a caricare il menù. Controlla la connessione e riprova.</p>'});
 if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+})();
+</script>
+<script>
+/* Statistiche anonime (GoatCounter). Per attivarle scrivi qui il codice scelto in fase di iscrizione,
+   per esempio "menumensa": vuoto = nessuna statistica. */
+window.STATS_CODE="";
+(function(){
+  if(!window.STATS_CODE)return;
+  var s=document.createElement("script");
+  s.async=true;
+  s.src="https://gc.zgo.at/count.js";
+  s.setAttribute("data-goatcounter","https://"+window.STATS_CODE+".goatcounter.com/count");
+  document.head.appendChild(s);
 })();
 </script>
 </body>
